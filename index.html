@@ -44,7 +44,7 @@
                 var videoId = "";
                 request.execute(function(response) {
                     console.log(response);
-                    for (var item in response.items) {
+                    for (var item of response.items) {
                         console.log(item);
                         if (item.id.kind == "youtube#video") {
                             videoId = response.items[0].id.videoId;
