@@ -43,6 +43,7 @@
 
                 var videoId = "";
                 request.execute(function(response) {
+                    console.log(response.items);
                     for (var item in response.items) {
                         console.log(item);
                         if (item.id.kind == "youtube#video") {
