@@ -3,10 +3,35 @@
         <link rel="stylesheet" type="text/css" href="index.css">
 
         <script>
-            function changeVideo() {
-                document.getElementById("videoPlayer").src = "https://www.youtube.com/embed/1hLO1r00NUI";
-            }
-        </script>
+                <script src="http://www.youtube.com/player_api"></script>
+
+                <script>
+                    var player;
+                    function onYouTubePlayerAPIReady() {
+                        player = new YT.Player('player', {
+                        width: '640',
+                        height: '390',
+                        videoId: '0Bmhjf0rKe8',
+                        events: {
+                            onReady: onPlayerReady,
+                            onStateChange: onPlayerStateChange
+                        }
+                        });
+                    }
+
+                    // autoplay video
+                    function onPlayerReady(event) {
+                        event.target.playVideo();
+                    }
+
+                    // when video ends
+                    function onPlayerStateChange(event) {        
+                        if(event.data === 0) {          
+                            alert('done');
+                        }
+                    }
+                </script>
+
     </head>
 
     <body>
