@@ -43,7 +43,6 @@
 
                 var videoId = "";
                 request.execute(function(response) {
-                    console.log(response);
                     for (var item of response.items) {
                         console.log(item);
                         if (item.id.kind == "youtube#video") {
@@ -87,7 +86,7 @@
     
         </div>
             
-        <button onclick="search()">SEARCH</button>
+        <button onclick="onYouTubePlayerAPIReady()">SEARCH</button>
 
     </body>
 
