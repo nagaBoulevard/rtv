@@ -72,15 +72,13 @@
             }
 
             function makeRequest() {
-                console.log(gapi.client);
                 var request = gapi.client.youtube.search.list({
                         q: generateSearchQuery(),
                         part: 'snippet'                        
                 });
 
                 request.execute(function(response) {
-                        var str = JSON.stringify(response.result);                
-                        alert(str);
+                        console.log(response);
                 });
             }
             </script>
@@ -108,14 +106,13 @@
                 // when video ends
                 function onPlayerStateChange(event) {        
                     if(event.data === 0) {          
-                        alert(generateSearchQuery());
+                        console.log(generateSearchQuery());
                     }
                 }
             </script>
     
         </div>
             
-        <button onclick="authenticate().then(loadClient)">authorize and load</button>
         <button onclick="search()">SEARCH</button>
 
     </body>
