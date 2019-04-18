@@ -62,16 +62,16 @@
             <script>
                 var player;
                 var videoId = searchVideo();
-                console.log(videoId);
                 function onYouTubePlayerAPIReady() {
+                    console.log(videoId);
                     player = new YT.Player('player', {
-                    width: '640',
-                    height: '390',
-                    videoId: videoId,
-                    events: {
-                        onReady: onPlayerReady,
-                        onStateChange: onPlayerStateChange
-                    }
+                        width: '640',   
+                        height: '390',
+                        videoId: videoId,
+                        events: {
+                            onReady: onPlayerReady,
+                            onStateChange: onPlayerStateChange
+                        }
                     });
                 }
 
@@ -90,7 +90,7 @@
     
         </div>
             
-        <button onclick="onYouTubePlayerAPIReady()">SEARCH</button>
+        <button onclick="onYouTubePlayerAPIReady()">SE</button>
 
     </body>
 
