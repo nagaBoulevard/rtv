@@ -2,13 +2,18 @@
     <head>
         <link rel="stylesheet" type="text/css" href="index.css">
 
-        <title>Welcome to RTV</title>
+        <script>
+            function changeVideo() {
+                document.getElementById("videoPlayer").src = "https://www.youtube.com/embed/1hLO1r00NUI";
+            }
+        </script>
     </head>
 
     <body>
 
-        <iframe id="videoFrame" width="560" height="315" src="https://www.youtube.com/embed/33FH1Jl62cY" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
+        <iframe id="videoPlayer" width="560" height="315" src="https://www.youtube.com/embed/33FH1Jl62cY" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
 
+        <button onclick="changeVideo()"></button>
     </body>
 
 </html>
