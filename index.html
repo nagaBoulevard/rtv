@@ -4,37 +4,37 @@
     </head>
 
     <body>
+        <div id="player">
+            <script src="http://www.youtube.com/player_api"></script>
 
-        <script src="http://www.youtube.com/player_api"></script>
-
-        <script>
-            var player;
-            function onYouTubePlayerAPIReady() {
-                player = new YT.Player('player', {
-                width: '640',
-                height: '390',
-                videoId: '0Bmhjf0rKe8',
-                events: {
-                    onReady: onPlayerReady,
-                    onStateChange: onPlayerStateChange
+            <script>
+                var player;
+                function onYouTubePlayerAPIReady() {
+                    player = new YT.Player('player', {
+                    width: '640',
+                    height: '390',
+                    videoId: '0Bmhjf0rKe8',
+                    events: {
+                        onReady: onPlayerReady,
+                        onStateChange: onPlayerStateChange
+                    }
+                    });
                 }
-                });
-            }
 
-            // autoplay video
-            function onPlayerReady(event) {
-                event.target.playVideo();
-            }
-
-            // when video ends
-            function onPlayerStateChange(event) {        
-                if(event.data === 0) {          
-                    alert('done');
+                // autoplay video
+                function onPlayerReady(event) {
+                    event.target.playVideo();
                 }
-            }
-        </script>
+
+                // when video ends
+                function onPlayerStateChange(event) {        
+                    if(event.data === 0) {          
+                        alert('done');
+                    }
+                }
+            </script>
     
-
+        </div>
         <iframe id="videoPlayer" width="560" height="315" src="https://www.youtube.com/embed/33FH1Jl62cY" frameborder="0" allow="autoplay; encrypted-media;" allowfullscreen></iframe>
 
         <button onclick="changeVideo()"></button>
