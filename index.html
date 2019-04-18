@@ -31,7 +31,7 @@
             </script>
 
             <!-- Search script-->
-            <!-- <script>
+            <script>
             /**
              * Sample JavaScript code for youtube.search.list
              * See instructions for running APIs Explorer code samples locally:
@@ -41,44 +41,31 @@
             function authenticate() {
                 return gapi.auth2.getAuthInstance()
                     .signIn({scope: "https://www.googleapis.com/auth/youtube.force-ssl"})
-                    .then(function() { console.log("Sign-in successful"); },
+                    .then(
+                        function() { console.log("Sign-in successful"); },
                         function(err) { console.error("Error signing in", err); });
             }
 
             function loadClient() {
                 return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
-                    .then(function() { console.log("GAPI client loaded for API"); },
+                    .then(
+                        function() { console.log("GAPI client loaded for API"); },
                         function(err) { console.error("Error loading GAPI client for API", err); });
             }
 
             // Make sure the client is loaded and sign-in is complete before calling this method.
-            function execute() {
-                return gapi.client.youtube.search.list({
+            function search() {
+                var request = gapi.client.youtube.search.list({
                     "part": "snippet",
-                    "q": "TEST" }).then(
-                        function(response) { console.log("Response", response); },
-                        function(err) { console.error("Execute error", err); }); 
+                    "q":  generateSearchQuery()}).execute();
+                
+                alert(request);
             }
-
+            
             gapi.load("client:auth2", function() {
                 gapi.auth2.init({client_id: "667994396877-e0kuq4pb757f0s95h0b99lr4478hv46m.apps.googleusercontent.com"}); 
             });
-            </script> -->
-
-            <script>
-                function onClientLoad() {
-                    gapi.client.setApiKey("AIzaSyD9Bywqvq2vMux03dNrOCtSpymVB0mMnGc");
-                    gapi.client.load('youtube', 'v3', search());
-                }
-
-                function search() {
-                    var request = gapi.client.youtube.search.list({
-                        part:"snippet",
-                        q: generateSearchQuery()
-                    });
-
-                    request.execute(function(response) {alert(response)});
-                }
+            
             </script>
 
             <!-- Control Player script -->
@@ -111,7 +98,7 @@
     
         </div>
             
-        <!-- <button onclick="authenticate().then(loadClient)">authorize and load</button> -->
+        <button onclick="authenticate().then(loadClient)">authorize and load</button>
         <button onclick="onClientLoad()">SEARCH</button>
 
     </body>
