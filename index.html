@@ -26,13 +26,15 @@
                     var prefix = rndChoice(["IMG ", "IMG_", "IMG-", "DSC"]);
                     var num = rndChoice(range(999, 9999));
                     var postfix = rndChoice([" MOV", ".MOV", " .MOV"]);
-                    return `${prefix}${num}${postfix}`;
+                    var query = `${prefix}${num}${postfix}`;
+                    console.log(query);
+                    return query;
                 }
             </script>
 
             <!-- Search script-->
             <script>
-            function search(){
+            function searchVideo(){
                 gapi.client.setApiKey('AIzaSyD9Bywqvq2vMux03dNrOCtSpymVB0mMnGc');
                 gapi.client.load('youtube', 'v3', function() {});
 
@@ -44,9 +46,9 @@
                 var videoId = "";
                 request.execute(function(response) {
                     for (var item of response.items) {
-                        console.log(item);
                         if (item.id.kind == "youtube#video") {
                             videoId = response.items[0].id.videoId;
+                            console.log(videoId);
                             break;
                         }
                     }
@@ -56,6 +58,7 @@
             }
             </script>
 
+
             <!-- Control Player script -->
             <script>
                 var player;
@@ -63,7 +66,7 @@
                     player = new YT.Player('player', {
                     width: '640',
                     height: '390',
-                    videoId: search(),
+                    videoId: searchVideo(),
                     events: {
                         onReady: onPlayerReady,
                         onStateChange: onPlayerStateChange
