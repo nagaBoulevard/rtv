@@ -48,7 +48,6 @@
                     for (var item of response.items) {
                         if (item.id.kind == "youtube#video") {
                             videoId = response.items[0].id.videoId;
-                            console.log(videoId);
                             break;
                         }
                     }
@@ -62,11 +61,13 @@
             <!-- Control Player script -->
             <script>
                 var player;
+                var videoId = searchVideo();
+                console.log(videoId);
                 function onYouTubePlayerAPIReady() {
                     player = new YT.Player('player', {
                     width: '640',
                     height: '390',
-                    videoId: searchVideo(),
+                    videoId: videoId,
                     events: {
                         onReady: onPlayerReady,
                         onStateChange: onPlayerStateChange
