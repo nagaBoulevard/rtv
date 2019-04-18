@@ -6,7 +6,7 @@
     <body>
         <div id="player">
             <script src="http://www.youtube.com/player_api"></script>
-            <script src="https://apis.google.com/js/client.js?onload=onClientLoad"></script>
+            <script src="https://apis.google.com/js/client.js?onload=googleApiClinetReady"></script>
 
             <!-- Generate ID script -->
             <script>
@@ -67,7 +67,8 @@
 
             <script>
                 function onClientLoad() {
-                    gapi.client.load('youtube', 'v3', gapi.client.setApiKey("AIzaSyD9Bywqvq2vMux03dNrOCtSpymVB0mMnGc"));
+                    gapi.client.setApiKey("AIzaSyD9Bywqvq2vMux03dNrOCtSpymVB0mMnGc");
+                    gapi.client.load('youtube', 'v3', search());
                 }
 
                 function search() {
@@ -111,7 +112,7 @@
         </div>
             
         <!-- <button onclick="authenticate().then(loadClient)">authorize and load</button> -->
-        <button onclick="search()">execute</button>
+        <button onclick="onClientLoad()">SEARCH</button>
 
     </body>
 
