@@ -52,7 +52,8 @@
                         }
                     }
                 });
-
+                
+                console.log(videoId);
                 return videoId;
             }
             </script>
@@ -61,8 +62,8 @@
             <!-- Control Player script -->
             <script>
                 var player;
-                var videoId = searchVideo();
                 function onYouTubePlayerAPIReady() {
+                    var videoId = searchVideo();
                     console.log(videoId);
                     player = new YT.Player('player', {
                         width: '640',   
@@ -90,7 +91,7 @@
     
         </div>
             
-        <button onclick="onYouTubePlayerAPIReady()">SE</button>
+        <button onclick="onYouTubePlayerAPIReady()">E</button>
 
     </body>
 
