@@ -38,34 +38,50 @@
              * https://developers.google.com/explorer-help/guides/code_samples#javascript
              */
 
-            function authenticate() {
-                return gapi.auth2.getAuthInstance()
-                    .signIn({scope: "https://www.googleapis.com/auth/youtube.force-ssl"})
-                    .then(
-                        function() { console.log("Sign-in successful"); },
-                        function(err) { console.error("Error signing in", err); });
-            }
+            // function authenticate() {
+            //     return gapi.auth2.getAuthInstance()
+            //         .signIn({scope: "https://www.googleapis.com/auth/youtube.force-ssl"})
+            //         .then(
+            //             function() { console.log("Sign-in successful"); },
+            //             function(err) { console.error("Error signing in", err); });
+            // }
 
-            function loadClient() {
-                return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
-                    .then(
-                        function() { console.log("GAPI client loaded for API"); },
-                        function(err) { console.error("Error loading GAPI client for API", err); });
-            }
+            // function loadClient() {
+            //     return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
+            //         .then(
+            //             function() { console.log("GAPI client loaded for API"); },
+            //             function(err) { console.error("Error loading GAPI client for API", err); });
+            // }
 
-            // Make sure the client is loaded and sign-in is complete before calling this method.
-            function search() {
-                var request = gapi.client.youtube.search.list({
-                    "part": "snippet",
-                    "q":  generateSearchQuery()});
+            // // Make sure the client is loaded and sign-in is complete before calling this method.
+            // function search() {
+            //     var request = gapi.client.youtube.search.list({
+            //         "part": "snippet",
+            //         "q":  generateSearchQuery()});
                 
-                request.execute((response) => alert(response));
+            //     request.execute((response) => alert(response));
+            // }
+            
+            // gapi.load("client:auth2", function() {
+            //     gapi.auth2.init({client_id: "667994396877-e0kuq4pb757f0s95h0b99lr4478hv46m.apps.googleusercontent.com"}); 
+            // });
+            
+            function search(){
+                gapi.client.setApiKey('API key here');
+                gapi.client.load('youtube', 'v3', function() {makeRequest();});
             }
-            
-            gapi.load("client:auth2", function() {
-                gapi.auth2.init({client_id: "667994396877-e0kuq4pb757f0s95h0b99lr4478hv46m.apps.googleusercontent.com"}); 
-            });
-            
+
+            function makeRequest() {
+                var request = gapi.client.youtube.search.list({
+                        q: generateSearchQuery(),
+                        part: 'snippet'                        
+                });
+
+                request.execute(function(response) {
+                        var str = JSON.stringify(response.result);                
+                        alert(str);
+                });
+            }
             </script>
 
             <!-- Control Player script -->
