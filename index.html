@@ -32,7 +32,6 @@
 
             <!-- Search script-->
             <script>
-            
             function search(){
                 gapi.client.setApiKey('AIzaSyD9Bywqvq2vMux03dNrOCtSpymVB0mMnGc');
                 gapi.client.load('youtube', 'v3', function() {});
@@ -45,6 +44,7 @@
                 var videoId = "";
                 request.execute(function(response) {
                     for (var item in response.items) {
+                        console.log(item);
                         if (item.id.kind == "youtube#video") {
                             videoId = response.items[0].id.videoId;
                             break;
