@@ -72,7 +72,7 @@
             }
 
             function makeRequest() {
-                alert(gapi.client);
+                console.log(gapi.client);
                 var request = gapi.client.youtube.search.list({
                         q: generateSearchQuery(),
                         part: 'snippet'                        
