@@ -6,7 +6,7 @@
     <body onload='start()'>
         <div id="main-player"></div>
         
-        <button>8</button>
+        <button>9</button>
 
         <script src="https://www.youtube.com/player_api"></script>
         <script src="https://apis.google.com/js/client:plusone.js"></script>
@@ -37,6 +37,7 @@
             
 
             function start() {
+                console.log('START: ' + (typeof gapi.client)) 
                 while (typeof gapi.client == 'undefined') {
                     console.log('Loading ... ');
                 }
