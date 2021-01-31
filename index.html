@@ -7,7 +7,7 @@
         
         <div id="main-player"></div>
         
-        <button>9</button>
+        <button>1</button>
         
         <script src="https://www.youtube.com/player_api"></script>
         <script src="https://apis.google.com/js/client:plusone.js"></script>
@@ -38,33 +38,28 @@
             
 
 
-            function searchVideo() {
-                console.log('gapi start');
+            function googleApiClientReady() {
                 gapi.client.setApiKey('AIzaSyAQU_uNJYC5ea5NLCBCyXLgiz5tDzhhQDs');
-                gapi.client.load('youtube', 'v3', function() {
-                    var request = gapi.client.youtube.search.list({
-                            q: generateSearchQuery(),
-                            part: 'snippet'
-                    });
+                gapi.client.load('youtube', 'v3', function() { searchVideo() });
+                
+            }
+            
+            function searchVideo() {
+                var request = gapi.client.youtube.search.list({
+                        q: generateSearchQuery(),
+                        part: 'snippet'
+                });
 
-                    var videoId = "";
-                    request.execute(function(response) {
-                        for (var item of response.items) {
-                            if (item.id.kind == "youtube#video") {
-                                videoId = response.items[0].id.videoId;
-                            }
+                var videoId = "";
+                request.execute(function(response) {
+                    for (var item of response.items) {
+                        if (item.id.kind == "youtube#video") {
+                            videoId = response.items[0].id.videoId;
                         }
-                    });
+                    }
                 });
                 
-                return videoId;
-            }
-
-            var player;
-            function onYouTubeIframeAPIReady() {
-                console.log('IFrame ready');
-                var videoId = searchVideo();
-                player = new YT.Player('main-player', {
+                var player = new YT.Player('main-player', {
                     width: 900,
                     height: 600,
                     videoId: videoId,
@@ -87,7 +82,7 @@
             function onPlayerStateChange(event) {
                 if(event.data === 0) {
                     console.log('Video Ended');
-                    searchVideo();
+                    //searchVideo();
                 }
             }
 
