@@ -38,8 +38,10 @@
             function searchVideo(){
                 gapi.client.setApiKey('AIzaSyAQU_uNJYC5ea5NLCBCyXLgiz5tDzhhQDs');
                 gapi.client.load('youtube', 'v3', function() {});
+                
+                var mytube = gapi.client.youtube;
 
-                var request = gapi.client.youtube.search.list({
+                var request = mytube.search.list({
                         q: generateSearchQuery(),
                         part: 'snippet'
                 });
