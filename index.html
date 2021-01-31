@@ -4,110 +4,81 @@
     </head>
 
     <body>
-        <div id="player">
-            <script src="https://www.youtube.com/player_api"></script>
-            <script src="https://apis.google.com/js/client.js?onload=search"></script>
-
-            <!-- Generate ID script -->
-            <script>
-                function rndChoice(vec) {
-                    return vec[Math.floor(Math.random() * vec.length)]
-                }
-
-                function range(start, end) {
-                    var list = [];
-                    for (var i = start; i <= end; i++) {
-                        list.push(i);
-                    }
-                    return list;
-                }
-
-                function generateSearchQuery() {
-                    var prefix = rndChoice(["IMG ", "IMG_", "IMG-", "DSC"]);
-                    var num = rndChoice(range(999, 9999));
-                    var postfix = rndChoice([" MOV", ".MOV", " .MOV"]);
-                    var query = `${prefix}${num}${postfix}`;
-                    console.log(query);
-                    return query;
-                }
-            </script>
-
-            <!-- Search script-->
-            <script>
-            function searchVideo(){
-                gapi.client.setApiKey('AIzaSyAQU_uNJYC5ea5NLCBCyXLgiz5tDzhhQDs');
-                gapi.client.load('youtube', 'v3', function() {});
-
-                var request = gapi.client.youtube.search.list({
-                        q: generateSearchQuery(),
-                        part: 'snippet'                        
-                });
-
-                var videoId = "";
-                request.execute(function(response) {
-                    for (var item of response.items) {
-                        if (item.id.kind == "youtube#video") {
-                            videoId = response.items[0].id.videoId;
-
-                            var player = new YT.Player('player', {
-                                width: '640',   
-                                height: '390',
-                                videoId: videoId,
-                                events: {
-                                    onReady: onPlayerReady,
-                                    onStateChange: onPlayerStateChange
-                                }
-                            });
-                            break;
-                        }
-                    }
-                });
-                
-                return videoId;
-            }
-
-            // autoplay video
-            function onPlayerReady(event) {
-                event.target.playVideo();
-            }
-
-            // when video ends
-            function onPlayerStateChange(event) {        
-                if(event.data === 0) {          
-                    gapi.client.setApiKey('AIzaSyAQU_uNJYC5ea5NLCBCyXLgiz5tDzhhQDs');
-                    gapi.client.load('youtube', 'v3', function() {});
-
-                    var request = gapi.client.youtube.search.list({
-                            q: generateSearchQuery(),
-                            part: 'snippet'                        
-                    });
-
-                    var videoId = "";
-                    request.execute(function(response) {
-                        for (var item of response.items) {
-                            if (item.id.kind == "youtube#video") {
-                                videoId = response.items[0].id.videoId;
-
-                                var player = new YT.Player('player', {
-                                    width: '640',   
-                                    height: '390',
-                                    videoId: videoId,
-                                    events: {
-                                        onReady: onPlayerReady,
-                                        onStateChange: onPlayerStateChange
-                                    }
-                                });
-                                break;
-                            }
-                        }
-                    });
-                }
-            }
-            </script>
-
-        </div>
+        <div id="main-player"></div>
             
-        <button onclick="searchVideo()">START</button>
+        <button onclick="play()">PLAY</button>
+
+        <script src="https://www.youtube.com/player_api"></script>
+        <script src="https://apis.google.com/js/client.js?onload=search"></script>
+
+        <!-- Generate ID script -->
+        <script>
+            gapi.client.setApiKey('AIzaSyAQU_uNJYC5ea5NLCBCyXLgiz5tDzhhQDs');
+            gapi.client.load('youtube', 'v3', function() {});
+
+            function rndChoice(vec) {
+                return vec[Math.floor(Math.random() * vec.length)]
+            }
+
+            function range(start, end) {
+                var list = [];
+                for (var i = start; i <= end; i++) {
+                    list.push(i);
+                }
+                return list;
+            }
+
+            function generateSearchQuery() {
+                var prefix = rndChoice(["IMG ", "IMG_", "IMG-", "DSC"]);
+                var num = rndChoice(range(999, 9999));
+                var postfix = rndChoice([" MOV", ".MOV", " .MOV"]);
+                var query = `${prefix}${num}${postfix}`;
+                console.log(query);
+                return query;
+            }
+        </script>
+
+        <!-- Search script-->
+        <script>
+        function searchVideo(){
+            var request = gapi.client.youtube.search.list({
+                    q: generateSearchQuery(),
+                    part: 'snippet'                        
+            });
+            request.execute(function(response) {
+                for (var item of response.items) {
+                    if (item.id.kind == "youtube#video") {
+                        return response.items[0].id.videoId;
+                    }
+                }
+            });
+        }
+
+        function play() {
+            var videoId = searchVideo();
+            var player = new YT.Player('main-player', {
+                width: '640',   
+                height: '390',
+                videoId: videoId,
+                events: {
+                    onReady: onPlayerReady,
+                    onStateChange: onPlayerStateChange
+                }
+            });
+        }
+
+        // autoplay video
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        // when video ends
+        function onPlayerStateChange(event) {        
+            if(event.data === 0) {}
+        }
+        </script>
+
+
 
     </body>
 
