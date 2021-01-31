@@ -6,7 +6,7 @@
     <body>
         <div id="main-player"></div>
         
-        <button>6</button>
+        <button>7</button>
 
         <script src="https://www.youtube.com/player_api"></script>
         <script src="https://apis.google.com/js/client:plusone.js"></script>
@@ -34,10 +34,12 @@
                 return query;
             }
 
+            function googleApiClientReady() {
+                   gapi.client.setApiKey('AIzaSyAQU_uNJYC5ea5NLCBCyXLgiz5tDzhhQDs');
+                   gapi.client.load('youtube', 'v3', function() {});
+            }
             
             function searchVideo(){
-                gapi.client.setApiKey('AIzaSyAQU_uNJYC5ea5NLCBCyXLgiz5tDzhhQDs');
-                gapi.client.load('youtube', 'v3', function() {});
 
                 var request = gapi.client.youtube.search.list({
                         q: generateSearchQuery(),
