@@ -7,7 +7,7 @@
         
         <div id="main-player"></div>
         
-        <button>1</button>
+        <button>3</button>
 
         <script src="https://www.youtube.com/player_api"></script>
         <script src="https://apis.google.com/js/client:plusone.js?onload=start"></script>
@@ -40,8 +40,10 @@
             function start() {
                 
                 function searchVideo() {
+                    console.log('Started video search');
                     gapi.client.setApiKey('AIzaSyAQU_uNJYC5ea5NLCBCyXLgiz5tDzhhQDs');
                     gapi.client.load('youtube', 'v3', function() {});
+                    console.log('gapi ready');
 
                     var request = gapi.client.youtube.search.list({
                             q: generateSearchQuery(),
@@ -62,6 +64,7 @@
 
                 var player;
                 function onYouTubeIframeAPIReady() {
+                    console.log('IFrame ready');
                     videoId = searchVideo();
                     player = new YT.Player('main-player', {
                         width: 900,
