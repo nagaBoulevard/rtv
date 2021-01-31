@@ -75,18 +75,15 @@
             // when video ends
             function onPlayerStateChange(event) {
                 if(event.data === 0) {
-                    console.log(generateSearchQuery());
+                    searchVideo();
                 }
             }
                 
-            function debug() {
-                console.log(generateSearchQuery());
-            }
             </script>
 
         </div>
             
-        <button onclick="debug()">XX</button>
+        <button onclick="searchVideo()">XX</button>
 
     </body>
 
