@@ -3,10 +3,10 @@
         <link rel="stylesheet" type="text/css" href="index.css">
     </head>
 
-    <body>
+    <body onload='start()'>
         <div id="main-player"></div>
         
-        <button>7</button>
+        <button>8</button>
 
         <script src="https://www.youtube.com/player_api"></script>
         <script src="https://apis.google.com/js/client:plusone.js"></script>
@@ -33,59 +33,64 @@
                 console.log(query);
                 return query;
             }
-
-            function googleApiClientReady() {
-                   gapi.client.setApiKey('AIzaSyAQU_uNJYC5ea5NLCBCyXLgiz5tDzhhQDs');
-                   gapi.client.load('youtube', 'v3', function() {});
-            }
             
-            function searchVideo(){
+            
 
-                var request = gapi.client.youtube.search.list({
-                        q: generateSearchQuery(),
-                        part: 'snippet'
-                });
+            function start() {
+                while (typeof gapi.client == 'undefined') {
+                    console.log('Loading ... ');
+                }
 
-                var videoId = "";
-                request.execute(function(response) {
-                    for (var item of response.items) {
-                        if (item.id.kind == "youtube#video") {
-                            videoId = response.items[0].id.videoId;
-                            console.log('Video id generated: ' + videoId);
-                            return videoId;
+                function searchVideo() {
+                    gapi.client.setApiKey('AIzaSyAQU_uNJYC5ea5NLCBCyXLgiz5tDzhhQDs');
+                    gapi.client.load('youtube', 'v3', function() {});
+
+                    var request = gapi.client.youtube.search.list({
+                            q: generateSearchQuery(),
+                            part: 'snippet'
+                    });
+
+                    var videoId = "";
+                    request.execute(function(response) {
+                        for (var item of response.items) {
+                            if (item.id.kind == "youtube#video") {
+                                videoId = response.items[0].id.videoId;
+                                console.log('Video id generated: ' + videoId);
+                                return videoId;
+                            }
                         }
+                    });
+                }
+
+                var player;
+                function onYouTubeIframeAPIReady() {
+                    videoId = searchVideo();
+                    player = new YT.Player('main-player', {
+                        width: 900,
+                        height: 600,
+                        videoId: videoId,
+                        playerVars: {
+                            color: 'white'
+                            //playlist: 'taJ60kskkns,FG0fTKAqZ5g'
+                        },
+                        events: {
+                            onReady: onPlayerReady,
+                            onStateChange: onPlayerStateChange
+                        }
+                    });
+                }
+
+                // autoplay video
+                function onPlayerReady(event) {
+                    event.target.playVideo();
+                }
+
+                // when video ends
+                function onPlayerStateChange(event) {
+                    if(event.data === 0) {
+                        console.log('Video Ended');
+                        searchVideo();
                     }
-                });
-            }
-
-            
-            function onYouTubeIframeAPIReady() {
-                videoId = searchVideo();
-                player = new YT.Player('main-player', {
-                    width: 900,
-                    height: 600,
-                    videoId: videoId,
-                    playerVars: {
-                        color: 'white'
-                        //playlist: 'taJ60kskkns,FG0fTKAqZ5g'
-                    },
-                    events: {
-                        onReady: onPlayerReady,
-                        onStateChange: onPlayerStateChange
-                    }
-                });
-            }
-
-            // autoplay video
-            function onPlayerReady(event) {
-                event.target.playVideo();
-            }
-
-            // when video ends
-            function onPlayerStateChange(event) {
-                if(event.data === 0) {
-                    console.log('Video Ended');
-                    searchVideo();
                 }
             }
 
