@@ -1,6 +1,8 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="index.css">
+        <script src="https://www.youtube.com/player_api"></script>
+        <script src="https://apis.google.com/js/client:plusone.js"></script>
         <script>
             console.log('gapi start');
             gapi.client.setApiKey('AIzaSyAQU_uNJYC5ea5NLCBCyXLgiz5tDzhhQDs');
@@ -13,10 +15,7 @@
         
         <div id="main-player"></div>
         
-        <button>6</button>
-
-        <script src="https://www.youtube.com/player_api"></script>
-        <script src="https://apis.google.com/js/client:plusone.js"></script>
+        <button>7</button>
 
         <!-- Generate ID script -->
         <script>
@@ -66,6 +65,7 @@
             var player;
             function onYouTubeIframeAPIReady() {
                 console.log('IFrame ready');
+                var videoId = searchVideo();
                 player = new YT.Player('main-player', {
                     width: 900,
                     height: 600,
