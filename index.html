@@ -1,50 +1,46 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="index.css">
-    </head>      
+    </head>
 
     <body>
-        
-        <div id="main-player"></div>
-        
-        <button onclick='searchVideo()'>1</button>
-        
-        <script src="https://www.youtube.com/player_api"></script>
-        <script src="https://apis.google.com/js/client:plusone.js"></script>
+        <div id="player">
+            <script src="http://www.youtube.com/player_api"></script>
+            <script src="https://apis.google.com/js/client.js?onload=search"></script>
 
-        <!-- Generate ID script -->
-        <script>
-            function rndChoice(vec) {
-                return vec[Math.floor(Math.random() * vec.length)]
-            }
-
-            function range(start, end) {
-                var list = [];
-                for (var i = start; i <= end; i++) {
-                    list.push(i);
+            <!-- Generate ID script -->
+            <script>
+                function rndChoice(vec) {
+                    return vec[Math.floor(Math.random() * vec.length)]
                 }
-                return list;
-            }
 
-            function generateSearchQuery() {
-                var prefix = rndChoice(["IMG ", "IMG_", "IMG-", "DSC"]);
-                var num = rndChoice(range(999, 9999));
-                var postfix = rndChoice([" MOV", ".MOV", " .MOV"]);
-                var query = `${prefix}${num}${postfix}`;
-                console.log(query);
-                return query;
-            }
-            
-            
+                function range(start, end) {
+                    var list = [];
+                    for (var i = start; i <= end; i++) {
+                        list.push(i);
+                    }
+                    return list;
+                }
 
+                function generateSearchQuery() {
+                    var prefix = rndChoice(["IMG ", "IMG_", "IMG-", "DSC"]);
+                    var num = rndChoice(range(999, 9999));
+                    var postfix = rndChoice([" MOV", ".MOV", " .MOV"]);
+                    var query = `${prefix}${num}${postfix}`;
+                    console.log(query);
+                    return query;
+                }
+            </script>
 
-            function searchVideo() {
-                gapi.client.setApiKey('AIzaSyAQU_uNJYC5ea5NLCBCyXLgiz5tDzhhQDs');
+            <!-- Search script-->
+            <script>
+            function searchVideo(){
+                gapi.client.setApiKey('AIzaSyD9Bywqvq2vMux03dNrOCtSpymVB0mMnGc');
                 gapi.client.load('youtube', 'v3', function() {});
-            
+
                 var request = gapi.client.youtube.search.list({
                         q: generateSearchQuery(),
-                        part: 'snippet'
+                        part: 'snippet'                        
                 });
 
                 var videoId = "";
@@ -52,19 +48,22 @@
                     for (var item of response.items) {
                         if (item.id.kind == "youtube#video") {
                             videoId = response.items[0].id.videoId;
+
+                            var player = new YT.Player('player', {
+                                width: '640',   
+                                height: '390',
+                                videoId: videoId,
+                                events: {
+                                    onReady: onPlayerReady,
+                                    onStateChange: onPlayerStateChange
+                                }
+                            });
+                            break;
                         }
                     }
                 });
                 
-                var player = new YT.Player('main-player', {
-                    width: 900,
-                    height: 600,
-                    videoId: videoId,
-                    events: {
-                        onReady: onPlayerReady,
-                        onStateChange: onPlayerStateChange
-                    }
-                });
+                return videoId;
             }
 
             // autoplay video
@@ -73,15 +72,17 @@
             }
 
             // when video ends
-            function onPlayerStateChange(event) {
-                if(event.data === 0) {
-                    console.log('Video Ended');
-                    //searchVideo();
+            function onPlayerStateChange(event) {        
+                if(event.data === 0) {          
+                    console.log(generateSearchQuery());
                 }
             }
+            </script>
 
-        </script>
+        </div>
             
+        <button onclick="searchVideo()">S</button>
+
     </body>
 
 </html>
