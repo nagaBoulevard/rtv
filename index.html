@@ -13,9 +13,7 @@
 
         <!-- Generate ID script -->
         <script>
-            gapi.client.setApiKey('AIzaSyAQU_uNJYC5ea5NLCBCyXLgiz5tDzhhQDs');
-            gapi.client.load('youtube', 'v3', function() {});
-
+            
             function rndChoice(vec) {
                 return vec[Math.floor(Math.random() * vec.length)]
             }
@@ -40,7 +38,10 @@
 
         <!-- Search script-->
         <script>
-        function searchVideo(){
+        function searchVideo() {
+            gapi.client.setApiKey('AIzaSyAQU_uNJYC5ea5NLCBCyXLgiz5tDzhhQDs');
+            gapi.client.load('youtube', 'v3', function() {});
+
             var request = gapi.client.youtube.search.list({
                     q: generateSearchQuery(),
                     part: 'snippet'                        
