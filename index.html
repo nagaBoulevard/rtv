@@ -49,6 +49,7 @@
                     for (var item of response.items) {
                         if (item.id.kind == "youtube#video") {
                             videoId = response.items[0].id.videoId;
+                            console.log('Video id generated: ' + videoId);
 
                             var player = new YT.Player('player', {
                                 width: '640',
@@ -76,7 +77,6 @@
             function onPlayerStateChange(event) {
                 if(event.data === 0) {
                     console.log('Video Ended');
-                    searchVideo();
                 }
             }
                 
