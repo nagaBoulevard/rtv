@@ -7,7 +7,7 @@
         
         <div id="main-player"></div>
         
-        <button>4</button>
+        <button>5</button>
 
         <script src="https://www.youtube.com/player_api"></script>
         <script src="https://apis.google.com/js/client:plusone.js"></script>
@@ -64,7 +64,12 @@
             var player;
             function onYouTubeIframeAPIReady() {
                 console.log('IFrame ready');
-                videoId = searchVideo();
+                while (true) {
+                    try { var videoId = searchVideo(); } 
+                    catch (error) { continue; }
+                    break
+                }
+                 
                 player = new YT.Player('main-player', {
                     width: 900,
                     height: 600,
