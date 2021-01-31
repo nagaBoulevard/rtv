@@ -75,6 +75,7 @@
             // when video ends
             function onPlayerStateChange(event) {
                 if(event.data === 0) {
+                    console.log('Video Ended');
                     searchVideo();
                 }
             }
@@ -83,7 +84,7 @@
 
         </div>
             
-        <button onclick="searchVideo()">XX</button>
+        <button onclick="searchVideo()">A</button>
 
     </body>
 
