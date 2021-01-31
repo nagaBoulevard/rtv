@@ -65,8 +65,12 @@
             function onYouTubeIframeAPIReady() {
                 console.log('IFrame ready');
                 while (true) {
-                    try { var videoId = searchVideo(); } 
-                    catch (error) { continue; }
+                    try { 
+                        var videoId = searchVideo(); 
+                        console.log('done');
+                    } catch (error) { 
+                        console.log('error');
+                        continue; }
                     break
                 }
                  
