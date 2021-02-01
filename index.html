@@ -3,9 +3,9 @@
         <link rel="stylesheet" type="text/css" href="index.css">
     </head>
 
-    <body>
+    <body onload='searchVideo()'>
         
-        <button onclick="searchVideo()">START</button>
+        <button onclick="searchVideo()">START1</button>
 
         <div id="player">
             <script src="https://www.youtube.com/player_api"></script>
@@ -37,6 +37,12 @@
 
             <!-- Search script-->
             <script>
+                
+            function search() {
+                searchVideo();
+                searchVideo();
+            }
+                
             function searchVideo(){
                 gapi.client.setApiKey('AIzaSyAQU_uNJYC5ea5NLCBCyXLgiz5tDzhhQDs');
                 gapi.client.load('youtube', 'v3', function() {});
